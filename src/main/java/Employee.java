@@ -3,7 +3,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class Employee extends User implements IManagable {
+public class Employee extends User implements IManagable, TaxesController {
     public Employee(String name, AccountType typeOfUser) {
         super(name, typeOfUser);
     }

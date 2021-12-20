@@ -1,10 +1,10 @@
 import java.util.*;
 
-public class TaxesController {
-    private static List<Map<String, Float>> taxList = new ArrayList<>();
+interface TaxesController {
+    List<Map<String, Float>> taxList = new ArrayList<>();
 
     static boolean doesTaxExistInTheBase(String taxName) {
-        if(getSpecificTaxRateByName(taxName) != null)
+        if (getSpecificTaxRateByName(taxName) != null)
             return !getSpecificTaxRateByName(taxName).isEmpty();
         return false;
     }
@@ -17,17 +17,17 @@ public class TaxesController {
                 .orElse(null);
     }
 
-    public static boolean changeValueOfExistingTax(String taxName, Float newTaxRate){
+    static boolean changeValueOfExistingTax(String taxName, Float newTaxRate) {
         if (findTuppleWithSpecificKey(taxName) == null)
             return false;
         else
-             findTuppleWithSpecificKey(taxName).computeIfPresent(taxName,(k,v)-> v = newTaxRate);
+            findTuppleWithSpecificKey(taxName).computeIfPresent(taxName, (k, v) -> v = newTaxRate);
         if (getSpecificTaxRateByName(taxName).get(taxName).equals(newTaxRate))
             return true;
         return false;
     }
 
-    public static Map<String, Float> getSpecificTaxRateByName(String taxName) {
+    static Map<String, Float> getSpecificTaxRateByName(String taxName) {
         return taxList
                 .stream()
                 .filter((x) -> x.containsKey(taxName))
@@ -45,16 +45,17 @@ public class TaxesController {
         boolean isThereSameNameInList = taxList
                 .stream()
                 .anyMatch(x -> x.containsKey(newTaxName));
-        if (isThereSameNameInList == true){
+        if (isThereSameNameInList == true) {
             System.out.println("Tax named like that already exists");
-            return false;}
-        else
+            return false;
+        } else
             return taxList.add(temporaryMap);
     }
 
     static void showTaxList() {
         System.out.println(taxList);
     }
+
     static boolean deleteSpecificTax(String taxName) {
         List<Map<String, Float>> operatedList = new ArrayList<>();
         taxList.stream()
@@ -71,6 +72,6 @@ public class TaxesController {
     }
 
     static boolean archiveTransaction(ArchiveData archiveData) {
-       return Archive.addRegisterToArchiveData(archiveData);
+        return Archive.addRegisterToArchiveData(archiveData);
     }
 }
