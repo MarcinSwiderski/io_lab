@@ -29,8 +29,8 @@ class TaxesControllerTest {
 
         TaxesController.showTaxList();
 
-        assertTrue(TaxesController.taxWithSpecificTax("xDDD"));
-        assertFalse(TaxesController.taxWithSpecificTax("xD"));
+        assertTrue(TaxesController.doesTaxExistInTheBase("xDDD"));
+        assertFalse(TaxesController.doesTaxExistInTheBase("xD"));
 
         TaxesController.deleteTaxList();
     }
@@ -43,7 +43,7 @@ class TaxesControllerTest {
                                 "tom",
                                 AccountType.client,
                                 "tax_xd1",
-                                0f,
+                                null,
                                 0.50f,
                                 TaxationType.TAX_ADDITION,
                                 new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss", Locale.US).format(new Date())
@@ -65,7 +65,7 @@ class TaxesControllerTest {
                 .archiveTransaction(
                         new ArchiveData(
                                 "caroline",
-                                AccountType.client,
+                                AccountType.employee,
                                 "tax_xd3",
                                 0f,
                                 0.22f,

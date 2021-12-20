@@ -1,7 +1,4 @@
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
@@ -24,7 +21,7 @@ public class Employee extends User implements IManagable {
 
     @Override
     public void addTaxInvoice() {
-        TaxesController.taxWithSpecificTax("XD");
+        TaxesController.doesTaxExistInTheBase("XD");
     }
 
     public boolean addTax(String taxName, Float taxPercentage) {
@@ -46,19 +43,21 @@ public class Employee extends User implements IManagable {
     }
 
     public boolean changeExistingTax(String taxName, Float taxPercentage) {
-        if(TaxesController.taxWithSpecificTax(taxName))
-        return TaxesController
-                        .archiveTransaction(
-                                new ArchiveData(
-                                        this.name,
-                                        this.accountType,
-                                        taxName,
-                                        TaxesController.getSpecificTaxRateByName(taxName).get(taxName),
-                                        taxPercentage,
-                                        TaxationType.TAX_REFACTOR,
-                                        new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss", Locale.US).format(new Date())
-                                )
-                        );
+        if (TaxesController.doesTaxExistInTheBase(taxName))
+            return TaxesController
+                            .changeValueOfExistingTax(taxName, taxPercentage) &&
+                    TaxesController
+                            .archiveTransaction(
+                                    new ArchiveData(
+                                            this.name,
+                                            this.accountType,
+                                            taxName,
+                                            TaxesController.getSpecificTaxRateByName(taxName).get(taxName),
+                                            taxPercentage,
+                                            TaxationType.TAX_REFACTOR,
+                                            new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss", Locale.US).format(new Date())
+                                    )
+                            );
         System.out.println("W bazie nie istnieje taki podatek");
         return false;
     }
@@ -95,7 +94,6 @@ public class Employee extends User implements IManagable {
                     "Enter your selection:\n1 Dodaj Podatek\n2 Wyswietl Podatki \n3 Usun Podatek\n4 Wyswietl wszystkie Logi\n5 Logi Aktualnego użytkownika\n6 Zamiana wartosci istniejacego podatku");
 
             int choose = inp.nextInt();
-            String taxName;
             switch (choose) {
                 case 1:
                     System.out.println(
@@ -139,7 +137,7 @@ public class Employee extends User implements IManagable {
                             "Podaj oprocentowanie podatku:"
                     );
                     Float nameOfTaxPertangeToChange = inp.nextFloat();
-                    changeExistingTax(nameOfTaxToChangeValue,nameOfTaxPertangeToChange);
+                    changeExistingTax(nameOfTaxToChangeValue, nameOfTaxPertangeToChange);
                     break;
                 default:
                     return;
