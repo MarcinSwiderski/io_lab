@@ -13,11 +13,11 @@ class TaxesControllerTest {
     @Test
     public void newTaxCreation() {
 
-        TaxesController.createNewTaxWithSpecificTaxRate("xD", 0.23f);
+        TaxesController.createNewTaxWithSpecificTaxRate("new_tax", 0.23f);
 
         TaxesController.showTaxList();
 
-        assertFalse(TaxesController.createNewTaxWithSpecificTaxRate("xD", 0.51f));
+        assertFalse(TaxesController.createNewTaxWithSpecificTaxRate("new_tax2", 0.51f));
 
         TaxesController.deleteTaxList();
     }
@@ -25,12 +25,12 @@ class TaxesControllerTest {
     @Test
     public void getTaxByName() {
 
-        TaxesController.createNewTaxWithSpecificTaxRate("xDDD", 0.31f);
+        TaxesController.createNewTaxWithSpecificTaxRate("new_tax", 0.31f);
 
         TaxesController.showTaxList();
 
-        assertTrue(TaxesController.doesTaxExistInTheBase("xDDD"));
-        assertFalse(TaxesController.doesTaxExistInTheBase("xD"));
+        assertTrue(TaxesController.doesTaxExistInTheBase("new_tax"));
+        assertFalse(TaxesController.doesTaxExistInTheBase("new_tax2"));
 
         TaxesController.deleteTaxList();
     }
@@ -42,7 +42,7 @@ class TaxesControllerTest {
                         new ArchiveData(
                                 "tom",
                                 AccountType.client,
-                                "tax_xd1",
+                                "tax_example1",
                                 null,
                                 0.50f,
                                 TaxationType.TAX_ADDITION,
@@ -54,7 +54,7 @@ class TaxesControllerTest {
                         new ArchiveData(
                                 "bob",
                                 AccountType.client,
-                                "tax_xd2",
+                                "tax_example2",
                                 0f,
                                 0.01f,
                                 TaxationType.TAX_ADDITION,
@@ -66,7 +66,7 @@ class TaxesControllerTest {
                         new ArchiveData(
                                 "caroline",
                                 AccountType.employee,
-                                "tax_xd3",
+                                "tax_example3",
                                 0f,
                                 0.22f,
                                 TaxationType.TAX_ADDITION,
@@ -78,7 +78,7 @@ class TaxesControllerTest {
                         new ArchiveData(
                                 "caroline",
                                 AccountType.client,
-                                "tax_xd4",
+                                "tax_example4",
                                 23f,
                                 0.22f,
                                 TaxationType.TAX_ADDITION,

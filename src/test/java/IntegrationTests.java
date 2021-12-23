@@ -1,7 +1,9 @@
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Test;
+
+import javax.swing.event.CaretListener;
+
+import java.sql.ClientInfoStatus;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -47,5 +49,49 @@ public class IntegrationTests {
 
     }
 
+    @Test
+    public void testowanieOpodatkowania() {
+        Employee employee = new Employee(
+                "Jarek",
+                AccountType.employee
+        );
+        Customer customer = new Customer(
+                "Marek",
+                AccountType.client,
+                4000f
+        );
+        assertTrue(employee.addTax(
+                "randomTaxName",
+                0.05f
+        ));
+        assertTrue(employee.addTax(
+                "randomTaxName2",
+                0.10f
+        ));
+        assertTrue(employee.addTax(
+                "randomTaxName3",
+                0.20f
+        ));
 
+
+        assertTrue(customer.addTaxToInvoice(
+                "randomTaxName2"
+        ));
+
+        Assertions.assertEquals((float) customer
+                        .salaryAfterTaxes(),
+                3600f
+        );
+
+        customer
+                .addTaxToInvoice(
+                        "randomTaxName"
+                );
+
+        Assertions.assertEquals((float) customer
+                        .salaryAfterTaxes(),
+                3400f
+        );
+
+    }
 }
