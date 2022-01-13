@@ -2,6 +2,7 @@ public abstract class User {
     protected String name;
     protected AccountType accountType;
     protected String mailAddress;
+    protected Archive archive;
 
     public User(String name, AccountType typeOfUser){
         this.name = name;

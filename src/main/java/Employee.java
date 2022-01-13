@@ -7,7 +7,9 @@ public class Employee extends User implements IManagable, TaxesController {
     public Employee(String name, AccountType typeOfUser) {
         super(name, typeOfUser);
     }
-
+    public Employee() {
+        super("mark", AccountType.employee);
+    }
     public static void main(String[] args) {
         Employee employee = new Employee("Mark", AccountType.employee);
         employee
@@ -120,7 +122,7 @@ public class Employee extends User implements IManagable, TaxesController {
                     System.out.println(
                             "Aktualne Logi:"
                     );
-                    Archive.showArchiveData();
+                    archive.showArchiveData();
                     break;
                 case 5:
                     System.out.println(

@@ -6,18 +6,17 @@ import java.util.stream.Collectors;
 public class Archive {
     static List<ArchiveData> archiveDataList = new LinkedList<>();
 
-    static boolean addRegisterToArchiveData(ArchiveData archiveData) throws IllegalArgumentException{
-        try{
+    static boolean addRegisterToArchiveData(ArchiveData archiveData) throws IllegalArgumentException {
+        try {
             return archiveDataList.add(archiveData);
-        }
-        catch (IllegalArgumentException ex)
-        {
+        } catch (IllegalArgumentException ex) {
             throw new IllegalArgumentException("Nie udalo sie dodac rejestru do listy w archiwum");
         }
     }
-    static void showArchiveData(){
-        for (ArchiveData archiveLog:archiveDataList
-             ) {
+
+    static void showArchiveData() {
+        for (ArchiveData archiveLog : archiveDataList
+        ) {
             System.out.println(archiveLog);
         }
     }

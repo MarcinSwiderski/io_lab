@@ -1,18 +1,27 @@
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import mockit.*;
+import mockit.integration.junit4.JMockit;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@RunWith(JMockit.class)
 class EmployeeTest {
+    @Mocked
+    Archive archive;
+
+    @Tested
+    Employee employee;
+
+
     @Test
     public void taxCreation() {
 
         Employee employee = new Employee(
-                "Marcin",
+                "Jarek",
                 AccountType.employee
         );
+
         System.out.println("Adding new Taxes");
         assertTrue(
                 employee
@@ -91,12 +100,6 @@ class EmployeeTest {
                                 0.44f
                         )
         );
-        System.out.println("Stan Listy \"Po\":");
-        TaxesController
-                .showTaxList();
-        System.out.println("Logi:");
-        Archive
-                .showArchiveData();
     }
 
 
@@ -136,11 +139,31 @@ class EmployeeTest {
     }
     @Test
     public void deletingAllTaxes(){
-        TaxesController
-                .showTaxList();
+        Employee employee = new Employee(
+                "Kasia",
+                AccountType.employee
+        );
+
+        assertTrue(
+                employee
+                        .addTax(
+                                "Marta_added_tax1",
+                                0.23f));
+        assertTrue(
+                employee
+                        .addTax(
+                                "Marta_added_tax2",
+                                0.25f));
+        assertTrue(
+                employee
+                        .addTax(
+                                "Marta_added_tax3",
+                                0.28f));
+        assertTrue(TaxesController
+                .getTaxList().size() > 0 );
         TaxesController
                 .deleteTaxList();
-        TaxesController
-                .showTaxList();
+        assertTrue(TaxesController
+                .getTaxList().size() == 0 );
     }
 }

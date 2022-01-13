@@ -56,6 +56,10 @@ interface TaxesController {
         System.out.println(taxList);
     }
 
+    static List<Map<String, Float>> getTaxList() {
+        return taxList;
+    }
+
     static boolean deleteSpecificTax(String taxName) {
         List<Map<String, Float>> operatedList = new ArrayList<>();
         taxList.stream()
